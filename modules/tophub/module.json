@@ -1,0 +1,22 @@
+{
+  "id": "tophub",
+  "name": "刷热榜",
+  "version": "0.4.0",
+  "description": "热榜巡游：她闲着、好奇了就自己去逛全网热榜（心智核心决定什么时候去），看完记成她的经历、挑有意思的私聊分享给主人；对外提供 hot()/search() 热点控件。",
+  "category": "platform",
+  "tags": [
+    "热榜",
+    "资讯",
+    "巡游"
+  ],
+  "author": "RookieApe-tao（Geng-zy 改成配合心智核心）",
+  "license": "MIT",
+  "api": 1,
+  "minPluginVersion": "1.2.0",
+  "requires": [],
+  "capabilities": [
+    "network",
+    "filesystem",
+    "plugin-config"
+  ]
+}
