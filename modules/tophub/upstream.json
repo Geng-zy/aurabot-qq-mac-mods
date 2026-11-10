@@ -1,0 +1,9 @@
+{
+  "repo": "aureth-labs/dsh-aurabot-qq-mods",
+  "registry": "https://raw.githubusercontent.com/aureth-labs/dsh-aurabot-qq-mods/registry/index.json",
+  "id": "tophub",
+  "version": "0.3.1",
+  "sha256": "7fe4ccb2a46b6f98ee1e1d9183559c0424d0b4e91ebfedfff3d2e3a4a735e3a2",
+  "commit": "3827609ce75cd6cb67d60ebd01b7a62f0d9cf448",
+  "note": "这个模块改自原作者的哪一版。每次跟进原作者的新版并发布后，把这里改成跟进到的那一版。"
+}

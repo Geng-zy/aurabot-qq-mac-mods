@@ -23,7 +23,7 @@ function filesOf(dir) {
   const out = []
   const walk = (d) => {
     for (const name of readdirSync(d).sort()) {
-      if (name.startsWith('.') || name === 'node_modules') continue
+      if (name.startsWith('.') || name === 'node_modules' || (d === dir && name === 'upstream.json')) continue // upstream.json 只给维护用，不进安装包
       const p = join(d, name)
       if (statSync(p).isDirectory()) walk(p)
       else out.push(relative(dir, p).split(sep).join('/'))

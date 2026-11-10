@@ -1,0 +1,34 @@
+# 每天检查原作者的同名模块有没有新版。有新版：生成交接文档、提交，开一个 issue @ 你（GitHub 会发邮件）。
+# 没有新版：什么都不做、不通知。
+name: 每天检查原作者的模块更新
+
+on:
+  schedule:
+    - cron: '17 1 * * *' # 每天北京时间 9:17（GitHub 的定时用 UTC，整点人多会排队，所以错开）
+  workflow_dispatch: {}
+
+permissions:
+  contents: write # 提交交接文档和合并结果
+  issues: write # 开 issue 通知你
+
+concurrency:
+  group: check-upstream
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '26'
+      - name: 检查
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOTIFY_USER: Geng-zy
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          node scripts/check-upstream.mjs
