@@ -286,6 +286,13 @@ async function openIssue(title, body) {
 }
 
 async function main() {
+  // 手动测试通知：只开一个标着「测试」的 issue，看邮件能不能收到；不检查、不提交
+  if (process.env.TEST_NOTIFY === '1') {
+    const doc = readFileSync(TEMPLATE, 'utf8')
+    const url = await openIssue('测试：每日检查的通知（可以关掉）', `@${NOTIFY} 这是一封**测试**通知，不是原作者真的出了新版。收到这封邮件就说明：检查到更新时你会像这样收到邮件，正文是填好的交接文档。\n\n下面是交接文档模板的开头（真的通知里这些占位会填好）：\n\n---\n\n${doc.slice(0, doc.indexOf('## 三、'))}`)
+    log('开了测试 issue：', url)
+    return
+  }
   const state = readJson(STATE, { notified: {}, updates: [], lastCommitAt: '' })
   state.notified ||= {}; state.updates ||= []
   const registries = new Map()

@@ -5,7 +5,12 @@ name: 每天检查原作者的模块更新
 on:
   schedule:
     - cron: '17 1 * * *' # 每天北京时间 9:17（GitHub 的定时用 UTC，整点人多会排队，所以错开）
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test_notify:
+        description: '只发一封测试通知（开一个标着「测试」的 issue），不检查'
+        type: boolean
+        default: false
 
 permissions:
   contents: write # 提交交接文档和合并结果
@@ -28,6 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NOTIFY_USER: Geng-zy
+          TEST_NOTIFY: ${{ inputs.test_notify && '1' || '' }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
