@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "assetsBase": "https://github.com/Geng-zy/aurabot-qq-mac-mods/releases/download/",
+  "modules": [
+    {
+      "id": "tophub",
+      "name": "刷热榜",
+      "version": "0.4.0",
+      "description": "热榜巡游：她闲着、好奇了就自己去逛全网热榜（心智核心决定什么时候去），看完记成她的经历、挑有意思的私聊分享给主人；对外提供 hot()/search() 热点控件。",
+      "category": "platform",
+      "tags": [
+        "热榜",
+        "资讯",
+        "巡游"
+      ],
+      "author": "RookieApe-tao（Geng-zy 改成配合心智核心）",
+      "license": "MIT",
+      "api": 1,
+      "minPluginVersion": "1.2.0",
+      "requires": [],
+      "capabilities": [
+        "network",
+        "filesystem",
+        "plugin-config"
+      ],
+      "replacesBuiltin": false,
+      "tag": "tophub-v0.4.0",
+      "file": "tophub-v0.4.0.zip",
+      "path": "tophub-v0.4.0/tophub-v0.4.0.zip",
+      "size": 19978,
+      "sha256": "a12c819d4a0a3d9206e93ce331888d99b9410a9530806e81029d313ad0b5366c"
+    }
+  ],
+  "revoked": [],
+  "generatedAt": "2026-11-10T07:51:41.278Z"
+}
