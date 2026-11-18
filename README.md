@@ -32,7 +32,7 @@ node scripts/pack.mjs
 面板读取：
 
 ```text
-https://raw.githubusercontent.com/Geng-zy/aurabot-qq-mac-mods/registry/index.json
+https://raw.githubusercontent.com/Geng-zy/aurabot-qq-mac-mods/main/registry/index.json
 ```
 
 ## 参考
