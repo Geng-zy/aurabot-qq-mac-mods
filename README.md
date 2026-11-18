@@ -24,7 +24,8 @@ registry/index.json 面板读取的索引
 ## 发布
 
 ```bash
-node scripts/pack.mjs
+node scripts/pack.mjs --check   # 只检查清单和入口，不生成文件
+node scripts/pack.mjs          # 打包并更新索引
 ```
 
 生成 `dist/<id>-<version>.zip`，并更新 `registry/index.json`。把 ZIP 作为 GitHub Release 附件发布，再提交索引。

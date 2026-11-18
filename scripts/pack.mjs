@@ -11,9 +11,11 @@ const modulesDir = join(root, 'modules')
 const distDir = join(root, 'dist')
 const registryDir = join(root, 'registry')
 const base = process.env.AURABOT_MODULE_ASSETS_BASE || 'https://github.com/Geng-zy/aurabot-qq-mac-mods/releases/download/v1/'
-
-mkdirSync(distDir, { recursive: true })
-mkdirSync(registryDir, { recursive: true })
+const checkOnly = process.argv.includes('--check')
+if (!checkOnly) {
+  mkdirSync(distDir, { recursive: true })
+  mkdirSync(registryDir, { recursive: true })
+}
 const modules = []
 for (const id of readdirSync(modulesDir, { withFileTypes: true }).filter((d) => d.isDirectory() && !d.name.startsWith('.')).map((d) => d.name)) {
   const dir = join(modulesDir, id)
@@ -22,6 +24,15 @@ for (const id of readdirSync(modulesDir, { withFileTypes: true }).filter((d) => 
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
   if (manifest.id !== id) throw new Error(`${id}: module.json id 不一致`)
   if (!existsSync(join(dir, 'index.mjs'))) throw new Error(`${id}: 缺 index.mjs`)
+  if (!/^\d+\.\d+\.\d+$/.test(String(manifest.version || ''))) throw new Error(`${id}: version 要是 1.2.3`)
+  if (!Number.isInteger(manifest.api) || manifest.api < 1) throw new Error(`${id}: api 要是正整数`)
+  const cats = new Set(['platform', 'social', 'creative', 'desktop', 'manage', 'tool'])
+  if (manifest.category && !cats.has(manifest.category)) throw new Error(`${id}: category 不认识`)
+  if (checkOnly) {
+    console.log(`checked ${id} ${manifest.version}`)
+    modules.push({ id, version: manifest.version })
+    continue
+  }
   const file = `${id}-${manifest.version}.zip`
   const out = join(distDir, file)
   rmSync(out, { force: true })
@@ -36,6 +47,10 @@ for (const id of readdirSync(modulesDir, { withFileTypes: true }).filter((d) => 
   })
   console.log(`packed ${file}`)
 }
-const index = { schema: 1, generatedAt: new Date().toISOString(), assetsBase: base, modules, revoked: [] }
-writeFileSync(join(registryDir, 'index.json'), JSON.stringify(index, null, 2) + '\n')
-console.log(`registry/index.json: ${modules.length} module(s)`)
+if (checkOnly) {
+  console.log(`check passed: ${modules.length} module(s)`)
+} else {
+  const index = { schema: 1, generatedAt: new Date().toISOString(), assetsBase: base, modules, revoked: [] }
+  writeFileSync(join(registryDir, 'index.json'), JSON.stringify(index, null, 2) + '\n')
+  console.log(`registry/index.json: ${modules.length} module(s)`)
+}
